@@ -1,0 +1,43 @@
+<launch>
+  <arg name="frame_id" default="/robot0"/>
+
+  <!-- CMD Contoll -->
+  <arg name="max_turn_speed" default="0.5"/>
+  <arg name="max_linear_speed" default="0.5"/>
+  <arg name="min_angle_for_turn" default="0.02"/>
+  <arg name="max_angle_for_full_linear_speed" default="0.785"/>
+  <arg name="threshold_angle_for_linear_speed" default="0.1"/>
+  
+  <!-- VFH Settings -->
+  <arg name="threshhold" default="0.05"/>
+  <arg name="sector_num" default="100"/>
+  <arg name="wide_sectors" default="5"/>
+  
+  <!-- laser to grid -->
+  <group ns="$(arg frame_id)">
+    
+    <node name="local_grid" pkg="test" type="laser_to_grid_node.py" output="screen">
+      <param name="frame_id" value="$(arg frame_id)"/>
+    </node>
+
+    <node name="vfh" pkg="tests" type="vfh_ros.py" output="screen">
+      <param name="frame_id"          value="$(arg frame_id)"/>
+      
+      <param name="threshhold"          value="$(arg threshhold)"/>
+      <param name="sector_num"          value="$(arg sector_num)"/>
+      <param name="wide_sectors"          value="$(arg wide_sectors)"/>
+
+      <param name="max_turn_speed"  value="$(arg max_turn_speed)"/>
+      <param name="max_linear_speed"  value="$(arg max_linear_speed)"/>
+      <param name="min_angle_for_turn"  value="$(arg min_angle_for_turn)"/>
+      <param name="max_angle_for_full_linear_speed"  value="$(arg max_angle_for_full_linear_speed)"/>
+      <param name="threshold_angle_for_linear_speed"  value="$(arg threshold_angle_for_linear_speed)"/>
+    </node>
+
+    <node name="trajectory_visualisation" pkg="tests" type="trajectory.py" output="screen">
+      <param name="odom" value="$(arg frame_id)/odom"/>
+      <param name="frame_id" value="/map"/>
+    </node>
+  </group>
+</launch>
+  
