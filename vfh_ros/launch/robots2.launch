@@ -1,0 +1,78 @@
+<launch>
+    <!-- Launch STDR and three robots-->
+    <include file="$(find vfh_ros)/launch/stdr.launch">
+        <!-- <arg name="map" value="empty_space.yaml"/> -->
+        <!-- <arg name="map" value="multiple_obstacle.yaml"/> -->
+        <!-- <arg name="map" value="one_obstacle.yaml"/> -->
+        <!-- <arg name="map" value="circle.yaml"/> -->
+        <arg name="map" value="multiple_circle.yaml"/>
+    </include>
+
+    <node pkg="stdr_robot" type="robot_handler" name="robot0_spawn" args="add $(find vfh_ros)/robots/pandora_robot.yaml 1 2 0" />
+    <node pkg="stdr_robot" type="robot_handler" name="robot1_spawn" args="add $(find vfh_ros)/robots/pandora_robot.yaml 1 2 0" />
+    <node pkg="stdr_robot" type="robot_handler" name="robot2_spawn" args="add $(find vfh_ros)/robots/pandora_robot.yaml 1 2 0" />
+    <node pkg="stdr_robot" type="robot_handler" name="robot3_spawn" args="add $(find vfh_ros)/robots/pandora_robot.yaml 1 2 0" />
+    <node pkg="stdr_robot" type="robot_handler" name="robot4_spawn" args="add $(find vfh_ros)/robots/pandora_robot.yaml 1 2 0" />
+    
+    <node pkg="stdr_robot" type="robot_handler" name="robot5_spawn" args="add $(find vfh_ros)/robots/pandora_robot.yaml 1 2 0" />
+    <node pkg="stdr_robot" type="robot_handler" name="robot6_spawn" args="add $(find vfh_ros)/robots/pandora_robot.yaml 1 2 0" />
+    <node pkg="stdr_robot" type="robot_handler" name="robot7_spawn" args="add $(find vfh_ros)/robots/pandora_robot.yaml 1 2 0" />
+    <node pkg="stdr_robot" type="robot_handler" name="robot8_spawn" args="add $(find vfh_ros)/robots/pandora_robot.yaml 1 2 0" />
+    <node pkg="stdr_robot" type="robot_handler" name="robot9_spawn" args="add $(find vfh_ros)/robots/pandora_robot.yaml 1 2 0" />
+
+    
+    <include file="$(find vfh_ros)/launch/robot.launch">
+        <arg name="frame_id" value="/robot0"/>
+        <arg name="threshhold" value="1"/>
+        <arg name="enable_lidar_noise" default="False"/>
+    </include>
+    
+    <include file="$(find vfh_ros)/launch/robot.launch">
+        <arg name="frame_id" value="/robot1"/>
+        <arg name="threshhold" value="0.5"/>
+    </include>
+
+    <include file="$(find vfh_ros)/launch/robot.launch">
+        <arg name="frame_id" value="/robot2"/>
+        <arg name="threshhold" value="0.25"/>
+    </include>
+
+    <include file="$(find vfh_ros)/launch/robot.launch">
+        <arg name="frame_id" value="/robot3"/>
+        <arg name="threshhold" value="0.125"/>
+    </include>
+
+    <include file="$(find vfh_ros)/launch/robot.launch">
+        <arg name="frame_id" value="/robot4"/>
+        <arg name="threshhold" value="0.0625"/>
+    </include>
+
+    <include file="$(find vfh_ros)/launch/robot.launch">
+        <arg name="frame_id" value="/robot5"/>
+        <arg name="threshhold" value="0.25"/>
+    </include>
+
+    <include file="$(find vfh_ros)/launch/robot.launch">
+        <arg name="frame_id" value="/robot6"/>
+        <arg name="threshhold" value="0.25"/>
+    </include>
+
+    <include file="$(find vfh_ros)/launch/robot.launch">
+        <arg name="frame_id" value="/robot7"/>
+        <arg name="threshhold" value="0.25"/>
+    </include>
+
+    <include file="$(find vfh_ros)/launch/robot.launch">
+        <arg name="frame_id" value="/robot8"/>
+        <arg name="threshhold" value="0.25"/>
+    </include>
+
+    <include file="$(find vfh_ros)/launch/robot.launch">
+        <arg name="frame_id" value="/robot9"/>
+        <arg name="threshhold" value="0.25"/>
+    </include>
+
+    <!-- Launch rviz -->
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find vfh_ros)/config/robots.rviz"/>
+  </launch>
+  

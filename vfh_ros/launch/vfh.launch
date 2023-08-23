@@ -1,0 +1,31 @@
+<launch>
+  <!-- Launch STDR -->
+  <include file="$(find vfh_ros)/launch/stdr.launch">
+    <!-- <arg name="map" value="multiple_obstacle.yaml"/> -->
+    <!-- <arg name="map" value="multiple_circle.yaml"/> -->
+    <arg name="map" value="circle.yaml"/>
+    <!-- <arg name="map" value="multiple_obstacle.yaml"/> -->
+  </include>
+
+  <node pkg="stdr_robot" type="robot_handler" name="robot0_spawn" args="add $(find vfh_ros)/robots/pandora_robot.yaml 1 2 0" />
+
+  <!-- laser to grid -->
+  <node name="local_grid" pkg="vfh_ros" type="laser_to_grid_node.py" output="screen">
+    <param name="frame_id" value="/robot0"/>
+    <!-- <param name="noise" value="False"/> -->
+  </node>
+
+  <node name="vfh" pkg="vfh_ros" type="vfh_ros.py" output="screen">
+    <param name="frame_id" value="/robot0"/>
+    <param name="threshhold" value="0.25"/>
+  </node>
+
+  <!-- Trajectory Visualisation -->
+  <node name="trajectory_visualisation" pkg="vfh_ros" type="trajectory.py" output="screen">
+    <param name="odom" value="/robot0/odom"/>
+    <param name="frame_id" value="/map"/>
+  </node>
+
+  <!-- Launch rviz -->
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find test)/config/config.rviz"/>
+</launch>

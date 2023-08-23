@@ -1,6 +1,0 @@
-<library path="lib/libvfh_local_planner">
-  <class name="vfh_local_planner/VFHPlannerROS" type="vfh_local_planner::VFHPlannerROS" base_class_type="nav_core::BaseLocalPlanner">
-    <description>
-    </description>
-  </class>
-</library>
